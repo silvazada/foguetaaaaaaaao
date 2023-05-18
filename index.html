@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foguete</title>
+    <style>
+        body {
+            width: 100%;
+            height: 150vh;
+            background-image: linear-gradient(0deg, skyblue, blue);
+            overflow: hidden;
+        }
+
+        .foguete {
+            position: absolute;
+            top: 800px;
+            left: 850px;
+        }
+
+        .lua {
+            position: absolute;
+            top: 815px;
+            left: 805px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <img src="lua.png" class="lua" width="200px">
+    <img src="foguete.gif" class="foguete" width="80px" id="foguete">
+
+
+</body>
+
+<script src="jquery-3.7.0.min.js"></script>
+
+<script>
+
+    data = new Date()
+    tempo_inicial = data.getTime()
+
+    temporizador = setTimeout(Subir, 1000)
+    x = 850
+    y = 50
+    TOPO = ""
+    ESQUERDA = ""
+    function Subir() {
+        TOPO = y + "px"
+        $("#foguete").animate({ top: TOPO }, 1000)
+        temporizador = null
+        temporizador = setInterval(Descer, 1000)
+    }
+    function Descer() {
+
+        y = y + 20
+        if (y > 800)
+
+            y = 800
+        TOPO = y + "px"
+        ESQUERDA = x + "px"
+        $("#foguete").animate({ left: ESQUERDA, top: TOPO }, 1000)
+    }
+
+    document.onkeydown = Pega_Tecla;
+
+
+    function Pega_Tecla(e) {
+        e = e || window.event;
+
+        tecla = e.keyCode;
+        console.log(tecla); // MOSTRA O CÓDIGO DA TECLA PRESSIONADA
+        data = new Date()
+        tempo_final = data.getTime()
+
+        if(tempo_final - tempo_inicial > 1000)
+        {
+            if (tecla == 37) {
+            x = x - 20
+        }
+        if (tecla == 39) {
+            x = x + 20
+        }
+        }
+    }
+
+</script>
+
+</html>
